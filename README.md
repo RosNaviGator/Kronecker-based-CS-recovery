@@ -1,3 +1,9 @@
+### Original work by hadizand, unaltered.
+This branch is just a backup of oirginal work from https://github.com/hadizand/Kronecker-based-CS-recovery
+
+Follows the original README
+
+
 # Kronecker-based-CS-recovery
 Kronecker technique for improving quality of the signal in compressive sensing recovery
 
