@@ -1,4 +1,30 @@
-# Kronecker-based-CS-recovery
+# Kronecker-based-CS-recovery  -- RosNaviGator
+
+
+## Fork to study and to port to python (if I manage) the work of https://github.com/hadizand/Kronecker-based-CS-recovery
+
+### Branches:
+#### master
+I will freely modify the code here to both test the pre-existing implementation (MATLAB), but also to port it to python for a project I'm working on.
+
+Files:
+- kronecker.ipynb:
+     - python implementation
+
+Directories:
+- debugMatlab: 
+     - modified version of original hadizand's code (MATLAB) with many debug prints to understand what happens at each step
+     - added different files trying to understand and repeat the creation of wavelet dictionaries as performed in MATLAB through __wmpdictionary__
+
+- hadizandMatlab:
+     - original hadizand's code (MATLAB) without all the debug prints and added functions, just to clean test the hadizand implementation
+
+#### hadizand-original-backup
+Untouched copy of orginal folder
+
+
+
+## Original description
 Kronecker technique for improving quality of the signal in compressive sensing recovery
 
  This code shows the effect of Kronecker technique on compressive sensing recovery; this technique has been used for different signals and measurement matrices, 

@@ -1,0 +1,6 @@
+# ignore .csv
+*.csv
+
+# ignore . asv
+*.asv
+
