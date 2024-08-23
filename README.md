@@ -4,10 +4,6 @@
 ## Fork to study and to port to python (if I manage) the work of [Kronecker-based-CS-recovery](https://github.com/hadizand/Kronecker-based-CS-recovery)
 
 
-## Table of content of the README
-- Original description (use it to understand what the repo is about, contains __references__ to papers about Kronecker Te)
-
-
 ## Original description (by [Hadi Zanddizari](https://github.com/hadizand))
 Kronecker technique for improving quality of the signal in compressive sensing recovery
 
@@ -51,20 +47,23 @@ Kronecker technique for improving quality of the signal in compressive sensing r
 
 ## Repo content
 ### Branches:
+---
 #### master
 I will freely modify the code here to both test the pre-existing implementation (MATLAB), but also to port it to python for a project I'm working on.
 
 Files:
-- kronecker.ipynb (Jupyter Notebook):
+- `kronecker.ipynb` (Jupyter Notebook):
      - python implementation
 
 Directories:
-- debugMatlab: 
+- `debugMatlab`: 
      - modified version of original hadizand's code (MATLAB) with many debug prints to understand what happens at each step
      - added different files trying to understand and repeat the creation of wavelet dictionaries as performed in MATLAB through __wmpdictionary__
 
-- hadizandMatlab:
+- `hadizandMatlab`:
      - original hadizand's code (MATLAB) without all the debug prints and added functions, just to clean test the hadizand implementation
+
+---
 
 #### hadizand-original-backup
 Untouched copy of orginal folder
@@ -76,12 +75,14 @@ Untouched copy of orginal folder
 You need to have MATLAB installed: `debugMATLAB`, `hadizandMATLAB` are stand-alone-content directories, just set MATLAB working directory to the one you want to run.
 - Version: original code was written in 2008, I used it in 2024, no compatibility issues to this day. 
 
+---
+
 ### Python
 It slightly depends on the following choice you make: you can either choose to use only the provided RECORD 100.mat from the repository or use other records from the MIT-BIH Arrhythmia Database. 
 
-#### Choice I: use only 100.mat in repo
+#### Python version and modules
 - Today: 23 August 2024 (worked fine up to this date)
-- Obviously need to have __python__ installed (__version 3.5 or above__, worked both with __3.8__ and __3.12__)
+- Version: obviously need to have __python__ installed (__version 3.5 or above__, worked both with __3.8__ and __3.12__)
 - You might want to install a python virtual environment, here shown with venv (but you're free to use _conda_ or whatever you prefer)
 ```sh
 # virtual environment
@@ -101,5 +102,11 @@ python -m ipykernel install --user --name=kroneckerVenv --display-name "Python (
 pip install -r .requirements.txt
 ```
 
-#### Choice II: use freely [MIT-BIH Arrhythmia Database](https://physionet.org/content/mitdb/1.0.0/)
-- There is a 
+#### Use freely whole [MIT-BIH Arrhythmia Database](https://physionet.org/content/mitdb/1.0.0/)
+- There is a dedicated python module to use the MIT-BIH Arrhythmia Database
+- __Beware:__ when I used this library in 2024 it __didn't work__ with latest version of python (__3.12__), it did work fine using __python3.8__
+```sh
+# Python module to use MIT-BIH databases bind to Physionet.org
+pip install wfdb
+```
+- __I didn't use it__ for my implementation, RECORD 100 already present in original repo was enough for the purpose of my study, so _the rest is up to you..._
