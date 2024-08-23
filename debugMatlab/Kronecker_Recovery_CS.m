@@ -145,20 +145,113 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%Recovery process%%%%%%%%%%%%%%%%%%%%%%%%
 %----------------------- Ordinary CS recovery method 
-for i=1:length(signal)/N1
-        y = Y(:,i);
-        xp = SL0(A1, y, sigma_min, sigma_decrease_factor, mu_0, L, A_pinv1);
-        %xp = l1eq_pd(A'*y2, A2, [], y2, 1e-1);
-        Recovered_ordinary(N1*i-(N1-1):N1*i) = dict1*xp;
+
+
+% Create the directory if it doesn't exist
+outputDir = 'debugCsvMAT';
+if ~exist(outputDir, 'dir')
+    mkdir(outputDir);
 end
+
+% List of filenames to delete before starting
+filesToDelete = {'y_block.csv', 's_block.csv', 'y_concatenated.csv', 's_block_kron.csv'};
+
+% Delete the files if they exist
+for i = 1:length(filesToDelete)
+    filePath = fullfile(outputDir, filesToDelete{i});
+    if exist(filePath, 'file')
+        delete(filePath);
+    end
+end
+
+
+
+% Define the precision for formatting
+precision = '6';  % You can change '6' to any other number of decimal places
+
+
+% Open the CSV files in append mode ('a' stands for append)
+fileID_y = fopen(fullfile(outputDir, 'y_block.csv'), 'a');
+fileID_xp = fopen(fullfile(outputDir, 's_block.csv'), 'a');
+
+for i = 1:length(signal)/N1
+    y = Y(:, i);
+    xp = SL0(A1, y, sigma_min, sigma_decrease_factor, mu_0, L, A_pinv1);
+    
+    % Recover the signal
+    Recovered_ordinary(N1*i-(N1-1):N1*i) = dict1*xp;
+    
+    % Generate the format specification string
+    formatSpec_y = [repmat(['%', precision, 'f,'], 1, size(y, 1)-1), '%', precision, 'f\n'];
+    formatSpec_xp = [repmat(['%', precision, 'f,'], 1, size(xp, 1)-1), '%', precision, 'f\n'];
+    
+    % Write y to the CSV file
+    fprintf(fileID_y, formatSpec_y, y);
+    
+    % Write xp (s_block) to the CSV file
+    fprintf(fileID_xp, formatSpec_xp, xp);
+end
+
+% Close the files
+fclose(fileID_y);
+fclose(fileID_xp);
+
+
+
+
 %------------------------ Kroneckered-based recovery
-for i=1:length(signal)/N2
-        y_concatened = reshape(Y(:,(i-1)*KronFact+1:i*KronFact),[M2,1]);
-        % y_concatened: contain multiple measurement vectors without any change
-        xp=SL0(A2, y_concatened, sigma_min, sigma_decrease_factor, mu_0, L, A_pinv2);
-        %xp = l1eq_pd(AA'*y1, A1, [], y1, 1e-1);
-        Recovered_Kronecker(N2*i-(N2-1):N2*i) = dict2*xp;
+
+
+
+% Define the precision for formatting
+precision = '6';  % You can change '6' to any other number of decimal places
+
+% Open the CSV files in append mode ('a' stands for append)
+fileID_y_concat = fopen(fullfile(outputDir, 'y_concatenated.csv'), 'a');
+fileID_xp_kron = fopen(fullfile(outputDir, 's_block_kron.csv'), 'a');
+
+% Initialize the concatenated measurement vector
+y_concatenated = zeros(M2, 1);
+
+% Determine the length of the zero line
+zeroLine_y = zeros(1, size(y_concatenated, 1));
+zeroLine_xp = zeros(1, size(xp, 1));
+
+for i = 1:length(signal)/N2
+    % Reshape and concatenate the measurement vectors
+    y_concatenated = reshape(Y(:, (i-1)*KronFact+1:i*KronFact), [M2, 1]);
+
+    disp(['y_concatenated size: ', num2str(size(y_concatenated))]);
+    disp(y_concatenated);
+    
+    % Perform SL0 algorithm (or any other recovery method)
+    xp = SL0(A2, y_concatenated, sigma_min, sigma_decrease_factor, mu_0, L, A_pinv2);
+    
+    % Recover the signal
+    Recovered_Kronecker(N2*i-(N2-1):N2*i) = dict2*xp;
+    
+    % Generate the format specification string for y_concatenated and xp
+    formatSpec_y_concat = [repmat(['%', precision, 'f,'], 1, size(y_concatenated, 1)-1), '%', precision, 'f\n'];
+    formatSpec_xp_kron = [repmat(['%', precision, 'f,'], 1, size(xp, 1)-1), '%', precision, 'f\n'];
+    
+    % Write y_concatenated to the CSV file
+    fprintf(fileID_y_concat, formatSpec_y_concat, y_concatenated);
+    
+    % Write a zero line separator in y_concatenated.csv
+    fprintf(fileID_y_concat, [repmat(['%', precision, 'f,'], 1, size(zeroLine_y, 2)-1), '%', precision, 'f\n'], zeroLine_y);
+    
+    % Write xp (s_block_kron) to the CSV file
+    fprintf(fileID_xp_kron, formatSpec_xp_kron, xp);
+    
+    % Write a zero line separator in s_block_kron.csv
+    fprintf(fileID_xp_kron, [repmat(['%', precision, 'f,'], 1, size(zeroLine_xp, 2)-1), '%', precision, 'f\n'], zeroLine_xp);
 end
+
+% Close the files
+fclose(fileID_y_concat);
+fclose(fileID_xp_kron);
+
+
 
 % %-----------------------------------------Calculating SNR
 % disp('SNR of ordinary CS recovery');
@@ -182,41 +275,52 @@ disp(['SNR of Kronecker-based recovery: ',num2str(SNR_Proposed)]);
 %------------------------End of the code------------------------%
 
 
-
-
 % Create the directory if it doesn't exist
-outputDir = 'debugCsv';
+outputDir = 'debugCsvMAT';
 if ~exist(outputDir, 'dir')
     mkdir(outputDir);
 end
 
-% Save A (Phi) to a CSV file
-writematrix(A, fullfile(outputDir, 'A_Phi.csv'));
+% Save signal to a CSV file with 6 decimal places
+saveMatrixWithPrecision(signal, fullfile(outputDir, 'signal.csv'), '.6');
 
-% Save AA (Phi_kron) to a CSV file
-writematrix(AA, fullfile(outputDir, 'AA_Phi_kron.csv'));
+% Save A (Phi) to a CSV file with 6 decimal places
+saveMatrixWithPrecision(A, fullfile(outputDir, 'A_Phi.csv'), '.6');
 
-% Save A1 (Theta) to a CSV file
-writematrix(A1, fullfile(outputDir, 'A1_Theta.csv'));
+% Save AA (Phi_kron) to a CSV file with 6 decimal places
+saveMatrixWithPrecision(AA, fullfile(outputDir, 'AA_Phi_kron.csv'), '.6');
 
-% Save A2 (Theta_kron) to a CSV file
-writematrix(A2, fullfile(outputDir, 'A2_Theta_kron.csv'));
+% Save A1 (Theta) to a CSV file with 6 decimal places
+saveMatrixWithPrecision(A1, fullfile(outputDir, 'A1_Theta.csv'), '.6');
 
-% Save dict1 (Dict) to a CSV file
+% Save A2 (Theta_kron) to a CSV file with 6 decimal places
+saveMatrixWithPrecision(A2, fullfile(outputDir, 'A2_Theta_kron.csv'), '.6');
+
+% Save dict1 (Dict) to a CSV file with 6 decimal places
 % Make non-sparse matrix
 dict1 = full(dict1);
-writematrix(dict1, fullfile(outputDir, 'dict1_Dict.csv'));
+saveMatrixWithPrecision(dict1, fullfile(outputDir, 'dict1_Dict.csv'), '.6');
 
-% Save dict2 (Dict_kron) to a CSV file
+% Save dict2 (Dict_kron) to a CSV file with 6 decimal places
 % Make non-sparse matrix
 dict2 = full(dict2);
-writematrix(dict2, fullfile(outputDir, 'dict2_Dict_kron.csv'));
+saveMatrixWithPrecision(dict2, fullfile(outputDir, 'dict2_Dict_kron.csv'), '.6');
 
-% Save Y to a CSV file
-writematrix(Y, fullfile(outputDir, 'Y.csv'));
+% Save Y to a CSV file with 6 decimal places
+saveMatrixWithPrecision(Y, fullfile(outputDir, 'Y.csv'), '.6');
 
-% Save A_pinv1 to a CSV file
-writematrix(A_pinv1, fullfile(outputDir, 'A_pinv1.csv'));
+% Save A_pinv1 to a CSV file with 6 decimal places
+saveMatrixWithPrecision(A_pinv1, fullfile(outputDir, 'A_pinv1.csv'), '.6');
 
-% Save A_pinv2 to a CSV file
-writematrix(A_pinv2, fullfile(outputDir, 'A_pinv2.csv'));
+% Save A_pinv2 to a CSV file with 6 decimal places
+saveMatrixWithPrecision(A_pinv2, fullfile(outputDir, 'A_pinv2.csv'), '.6');
+
+
+
+% Function to save matrix with specific precision using fprintf
+function saveMatrixWithPrecision(matrix, filename, precision)
+    fileID = fopen(filename, 'w');
+    formatSpec = [repmat(['%', precision, 'f,'], 1, size(matrix, 2)-1), '%', precision, 'f\n'];
+    fprintf(fileID, formatSpec, matrix.');
+    fclose(fileID);
+end
