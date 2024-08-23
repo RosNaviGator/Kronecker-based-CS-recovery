@@ -42,20 +42,33 @@
 
 clear ; close all; clc;
 %%%%%%%%%%%%%%%%%%%%%%%%%%
-data0 = load('100m.mat');%ECG signal from MIT database
-signal = data0.val(1,512*0+1:512*4)';%some samples of an ECG signal
+
+
+% I put this here because you have to decide kron fact based on
+% the signal length, but for testing reasons I prefer to do the 
+% opposite: choose signal length based on kron factor
+N1 = 16;  % block size, deafult is 16
+KronFact = N1 * 2;  % kron factor default is 32
+
+TEMP = N1 * KronFact;  % this is equal to the length of a kronecker block
+NUM  = 600;  % how many kronecker blocks will be long the original signals
+
+
+data0 = load('100m.mat');  %ECG signal from MIT database
+signal = data0.val(1,TEMP*0+1:TEMP*NUM)';  %some samples of an ECG signal
+
 
 % print signal shape
 disp(['Size of signal: ', num2str(size(signal))]);
 
 %------------------------measurement matrix
 CR = 1/4;%compression ratio 
-N1 = 16; %length of signal for sensing 
+%N1 = 16; %length of signal for sensing 
 M1= N1 * CR; %length of measurement 
 
-N2 = 512; %length of signal for recovery based on Kronecker technique 
+N2 = N1 * KronFact; %length of signal for recovery based on Kronecker technique 
 M2 = N2*CR;%length of concatened measurements
-KronFact = N2/N1; % kronecker factor 
+%KronFact = N2/N1; % kronecker factor 
 
 %------------------------------sensing matrix
 %----random matrices
@@ -221,8 +234,8 @@ for i = 1:length(signal)/N2
     % Reshape and concatenate the measurement vectors
     y_concatenated = reshape(Y(:, (i-1)*KronFact+1:i*KronFact), [M2, 1]);
 
-    disp(['y_concatenated size: ', num2str(size(y_concatenated))]);
-    disp(y_concatenated);
+    %disp(['y_concatenated size: ', num2str(size(y_concatenated))]);
+    %disp(y_concatenated);
     
     % Perform SL0 algorithm (or any other recovery method)
     xp = SL0(A2, y_concatenated, sigma_min, sigma_decrease_factor, mu_0, L, A_pinv2);
