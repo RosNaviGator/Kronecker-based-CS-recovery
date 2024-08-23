@@ -1,10 +1,14 @@
-# Kronecker-based-CS-recovery  -- RosNaviGator
+# Kronecker-based-CS-recovery -- ECG data -- RosNaviGator
 
 
-## Fork to study and to port to python (if I manage) the work of https://github.com/hadizand/Kronecker-based-CS-recovery
+## Fork to study and to port to python (if I manage) the work of [Kronecker-based-CS-recovery](https://github.com/hadizand/Kronecker-based-CS-recovery)
 
 
-## Original description
+## Table of content of the README
+- Original description (use it to understand what the repo is about, contains __references__ to papers about Kronecker Te)
+
+
+## Original description (by [Hadi Zanddizari](https://github.com/hadizand))
 Kronecker technique for improving quality of the signal in compressive sensing recovery
 
  This code shows the effect of Kronecker technique on compressive sensing recovery; this technique has been used for different signals and measurement matrices, 
@@ -51,7 +55,7 @@ Kronecker technique for improving quality of the signal in compressive sensing r
 I will freely modify the code here to both test the pre-existing implementation (MATLAB), but also to port it to python for a project I'm working on.
 
 Files:
-- kronecker.ipynb:
+- kronecker.ipynb (Jupyter Notebook):
      - python implementation
 
 Directories:
@@ -64,3 +68,38 @@ Directories:
 
 #### hadizand-original-backup
 Untouched copy of orginal folder
+
+
+## How to use
+### MATLAB content
+
+You need to have MATLAB installed: `debugMATLAB`, `hadizandMATLAB` are stand-alone-content directories, just set MATLAB working directory to the one you want to run.
+- Version: original code was written in 2008, I used it in 2024, no compatibility issues to this day. 
+
+### Python
+It slightly depends on the following choice you make: you can either choose to use only the provided RECORD 100.mat from the repository or use other records from the MIT-BIH Arrhythmia Database. 
+
+#### Choice I: use only 100.mat in repo
+- Today: 23 August 2024 (worked fine up to this date)
+- Obviously need to have __python__ installed (__version 3.5 or above__, worked both with __3.8__ and __3.12__)
+- You might want to install a python virtual environment, here shown with venv (but you're free to use _conda_ or whatever you prefer)
+```sh
+# virtual environment
+python -m venv .kroneckerVenv
+source .kroneckerVenv/bin/activate
+```
+- If working with Jupyter Notebook (.ipynb)
+     - NOTE: to this day, I only provide a version in jupyter, my intention is to transpose to individual scripts once I have the time, for better portability and mantainability.
+```sh
+# ipykernel installation
+pip install jupyter ipykernel
+python -m ipykernel install --user --name=kroneckerVenv --display-name "Python (kroneckerVenv)"
+```
+- Install required python modules
+```sh
+# other modules
+pip install -r .requirements.txt
+```
+
+#### Choice II: use freely [MIT-BIH Arrhythmia Database](https://physionet.org/content/mitdb/1.0.0/)
+- There is a 
