@@ -3,63 +3,65 @@
 
 ## Fork to study and to port to python (if I manage) the work of [Kronecker-based-CS-recovery](https://github.com/hadizand/Kronecker-based-CS-recovery)
 
-
-## Original description (by [Hadi Zanddizari](https://github.com/hadizand))
-Kronecker technique for improving quality of the signal in compressive sensing recovery
-
- This code shows the effect of Kronecker technique on compressive sensing recovery; this technique has been used for different signals and measurement matrices, 
-  and it has been published in multiple journals and conference papers:
-
-% [1] H. Zanddizari, S. Rajan, and H. Zarrabi, “Increasing the quality of reconstructed  signal  in  compressive  sensing  utilizing  Kronecker  technique,”
-     % Biomedical Engineering Letters, vol. 8, no. 2, pp. 239–247, May 2018.
-
-% [2] D. Mitra, H. Zanddizari, and S. Rajan, "Investigation of Kronecker-based recovery of compressed ECG signal," 
-     % IEEE Transactions on Instrumentation and Measurement, pp. 1-1, 2019.
-
-% [3] D. Mitra, H. Zanddizari, and S. Rajan, “Improvement of signal quality during recovery of compressively sensed ECG signals,” 
-     % in 2018 IEEE International Symposium on Medical Measurements and Applications (MeMeA), June 2018, pp. 1–5.
-
-% [4] D. Mitra, H. Zanddizari, and S. Rajan, “Improvement of recovery in segmentation-based parallel compressive sensing,” 
-     % in 2018 IEEE International Symposium on Signal Processing and Information Technology (ISSPIT), Dec 2018, pp. 501–506.
-
-%Author Hadi Zanddizari, 
-% hadiz@mail.usf.edu
-% hadizand@alumni.iust.ac.ir
+I will leave as description the original one by Hadi Zanddizari, it also __includes all the references__ to __Kronecker Technique__, __Compressed Sensing__, __SL0 recovery algorithm__, __MIT-BIH Arrhythmia database__ 
 
 
-%-----------The main objective of this approach
-% For fast and efficient compression, sensing phase in compressive sensing can be done in very small size, because in this case: 
-    %it requires very small measurement matrix, 
-    %less number of multiplication and addition operations, and
-    %less delay for generating compressed samples
-    % which can be used for sensors with low computational resources.
- But sensing in small size degrades quality of recovery. Kronecker
- technique can be used in order to improve the quality of recovered signal.
+### Original description (by [Hadi Zanddizari](https://github.com/hadizand))
 
-%---------------------------------------CS Recovery algorithm
- Any recovery algorithm can be used. In this code, Sl0 which is very fast CS recovery algorithm is used.
- [sl0-reference]: http://ee.sharif.edu/~SLzero/
+**Kronecker Technique for Improving Signal Quality in Compressive Sensing Recovery**
 
-%----------------------------------Database
- In this code, an ECG signal from MIT-BIH Arrhythmia database which is public dataset is used.
- [Database Reference]:MIT-BIH Arrhythmia Database. [Online]. Available: http://www.physionet.org/physiobank/database/mitdb/
- 
+This code demonstrates the effect of the Kronecker technique on compressive sensing recovery. This technique has been used for different signals and measurement matrices and has been published in multiple journals and conference papers:
+
+1. **H. Zanddizari, S. Rajan, and H. Zarrabi**, “Increasing the quality of reconstructed signal in compressive sensing utilizing Kronecker technique,”  
+   *Biomedical Engineering Letters*, vol. 8, no. 2, pp. 239–247, May 2018.
+
+2. **D. Mitra, H. Zanddizari, and S. Rajan**, "Investigation of Kronecker-based recovery of compressed ECG signal,"  
+   *IEEE Transactions on Instrumentation and Measurement*, pp. 1-1, 2019.
+
+3. **D. Mitra, H. Zanddizari, and S. Rajan**, “Improvement of signal quality during recovery of compressively sensed ECG signals,”  
+   *2018 IEEE International Symposium on Medical Measurements and Applications (MeMeA)*, June 2018, pp. 1–5.
+
+4. **D. Mitra, H. Zanddizari, and S. Rajan**, “Improvement of recovery in segmentation-based parallel compressive sensing,”  
+   *2018 IEEE International Symposium on Signal Processing and Information Technology (ISSPIT)*, Dec 2018, pp. 501–506.
+
+**Original Author (MATLAB)**: Hadi Zanddizari  
+Email: [hadiz@mail.usf.edu](mailto:hadiz@mail.usf.edu), [hadizand@alumni.iust.ac.ir](mailto:hadizand@alumni.iust.ac.ir)
+
+#### The Main Objective of This Approach
+
+For fast and efficient compression, the sensing phase in compressive sensing can be done in a very small size, because in this case:
+
+- It requires a very small measurement matrix,
+- Less number of multiplication and addition operations,
+- Less delay for generating compressed samples,
+
+These characteristics are particularly useful for sensors with low computational resources. However, sensing in small sizes degrades the quality of recovery. The Kronecker technique can be used to improve the quality of the recovered signal.
+
+#### CS Recovery Algorithm
+
+Any recovery algorithm can be used. In this code, **Sl0**, which is a very fast CS recovery algorithm, is used.  
+SL0 Reference: [http://ee.sharif.edu/~SLzero/](http://ee.sharif.edu/~SLzero/)
+
+#### Database
+
+In this code, an ECG signal from the **MIT-BIH Arrhythmia Database**, which is a public dataset, is used.  
+Database Reference: MIT-BIH Arrhythmia Database. Available: [http://www.physionet.org/physiobank/database/mitdb/](http://www.physionet.org/physiobank/database/mitdb/)
 
 ## Repo content
+
 ### Branches:
+
 ---
+
 #### master
-I will freely modify the code here to both test the pre-existing implementation (MATLAB), but also to port it to python for a project I'm working on.
+- Python implementation that __partially__ correctly emulates the original MATLAB code
+- I never managed to build a __dwt dictionary__ in the way MATLAB's `wmpdictionary`, note that in the future Mathworks plans to remove the obsolete `wmpdictionary`, it will be substituted by `sensingDictionary`
 
-Directories:
-- `python`:
-     - `kronecker.ipynb` (Jupyter Notebook): python implementation
-- `debugMatlab`: 
-     - modified version of original hadizand's code (MATLAB) with many debug prints to understand what happens at each step
-     - added different files trying to understand and repeat the creation of wavelet dictionaries as performed in MATLAB through __wmpdictionary__
+---
 
-- `hadizandMatlab`:
-     - original hadizand's code (MATLAB) without all the debug prints and added functions, just to clean test the hadizand implementation
+#### csv-logging-ipynb
+- Python code is all in a Jupyter Notebook
+- Both `MATLAB` and `Python` codes save all relevant variables in `csv` so that the two languages implementation can be compared.
 
 ---
 
@@ -68,15 +70,15 @@ Untouched copy of orginal folder
 
 ---
 
-### testing-ground
-A messy branch full of failed attempts (especially in creating a _DWT dictionary_), plus lots and lots of debugging prints ...
 
 
 ## How to use
+
 ### MATLAB content
 
 You need to have MATLAB installed: `debugMATLAB`, `hadizandMATLAB` are stand-alone-content directories, just set MATLAB working directory to the one you want to run.
-- Version: original code was written in 2008, I used it in 2024, no compatibility issues to this day. 
+- Version: original code was written in 2008, I used it in 2024, no compatibility issues to this day.
+- `wmpdictionary` is obsolete, will be soon replaced by `sensingDictionary`
 
 ---
 
