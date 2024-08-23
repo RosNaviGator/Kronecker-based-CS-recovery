@@ -51,11 +51,9 @@ Kronecker technique for improving quality of the signal in compressive sensing r
 #### master
 I will freely modify the code here to both test the pre-existing implementation (MATLAB), but also to port it to python for a project I'm working on.
 
-Files:
-- `kronecker.ipynb` (Jupyter Notebook):
-     - python implementation
-
 Directories:
+- `python`:
+     - `kronecker.ipynb` (Jupyter Notebook): python implementation
 - `debugMatlab`: 
      - modified version of original hadizand's code (MATLAB) with many debug prints to understand what happens at each step
      - added different files trying to understand and repeat the creation of wavelet dictionaries as performed in MATLAB through __wmpdictionary__
@@ -68,6 +66,11 @@ Directories:
 #### hadizand-original-backup
 Untouched copy of orginal folder
 
+---
+
+### testing-ground
+A messy branch full of failed attempts (especially in creating a _DWT dictionary_), plus lots and lots of debugging prints ...
+
 
 ## How to use
 ### MATLAB content
@@ -78,11 +81,14 @@ You need to have MATLAB installed: `debugMATLAB`, `hadizandMATLAB` are stand-alo
 ---
 
 ### Python
-It slightly depends on the following choice you make: you can either choose to use only the provided RECORD 100.mat from the repository or use other records from the MIT-BIH Arrhythmia Database. 
+It slightly depends on the following choice you make: you can either choose to use only the provided RECORD 100.mat from the repository or use other records from the MIT-BIH Arrhythmia Database.
 
 #### Python version and modules
 - Today: 23 August 2024 (worked fine up to this date)
 - Version: obviously need to have __python__ installed (__version 3.5 or above__, worked both with __3.8__ and __3.12__)
+
+- Run all commands from `root` directory of the project
+
 - You might want to install a python virtual environment, here shown with venv (but you're free to use _conda_ or whatever you prefer)
 ```sh
 # virtual environment
@@ -100,6 +106,11 @@ python -m ipykernel install --user --name=kroneckerVenv --display-name "Python (
 ```sh
 # other modules
 pip install -r .requirements.txt
+```
+
+#### Automatic installation script (alternative to previous ones)
+```sh
+source install.sh
 ```
 
 #### Use freely whole [MIT-BIH Arrhythmia Database](https://physionet.org/content/mitdb/1.0.0/)
