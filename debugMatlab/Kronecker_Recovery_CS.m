@@ -91,23 +91,20 @@ if RANDONES == 1
     A = 2*randi([0 1],M1,N1)-1;
 end
 
-disp(['Size of A: ', num2str(size(A))]);
-    disp(A)
+
 
 %------------------------------Sparsifying basis matrix
 dic = 1;
-if dic == 0
+if dic == 1
 dict1 = wmpdictionary(N1,'LstCpt',{'dct'});
 dict2 = wmpdictionary(N2,'LstCpt',{'dct'});
 
-elseif dic==1
+elseif dic==0
 dict1 = wmpdictionary(N1,'lstcpt',{{'db10',10}});
 dict2 = wmpdictionary(N2,'lstcpt',{{'db10',10}});
 end
 
-% print dict1 entirely
-disp(['Size of dict1: ', num2str(size(dict1))]);
-disp(dict1)
+
 
 
 
@@ -116,9 +113,7 @@ AA = kron(eye(KronFact),A);
 A1 = A*dict1;
 A2 = AA*dict2;
 
-% print A1 shape
-disp(['Size of A1: ', num2str(size(A1))]);
-disp(A1)
+
 
 %------------------------Compression phase based of CS
 Y = zeros(M1,length(signal)/N1);
@@ -126,9 +121,7 @@ for i = 1:length(signal)/N1
    Y(:,i)=A*signal((i-1)*N1+1:N1*i,1);
 end
 
-% print Y shape
-disp(['Size of Y: ', num2str(size(Y))]);
-disp(Y)
+
 
 %------------------------initializing Sl0 parameter
 for i=1:1
@@ -148,9 +141,6 @@ for i=1:1
     end
 end
 
-
-disp(['Size of A_pinv1: ', num2str(size(A_pinv1))]);
-disp(A_pinv1)
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%Recovery process%%%%%%%%%%%%%%%%%%%%%%%%
@@ -190,3 +180,43 @@ disp(['SNR of Kronecker-based recovery: ',num2str(SNR_Proposed)]);
 
 
 %------------------------End of the code------------------------%
+
+
+
+
+% Create the directory if it doesn't exist
+outputDir = 'debugCsv';
+if ~exist(outputDir, 'dir')
+    mkdir(outputDir);
+end
+
+% Save A (Phi) to a CSV file
+writematrix(A, fullfile(outputDir, 'A_Phi.csv'));
+
+% Save AA (Phi_kron) to a CSV file
+writematrix(AA, fullfile(outputDir, 'AA_Phi_kron.csv'));
+
+% Save A1 (Theta) to a CSV file
+writematrix(A1, fullfile(outputDir, 'A1_Theta.csv'));
+
+% Save A2 (Theta_kron) to a CSV file
+writematrix(A2, fullfile(outputDir, 'A2_Theta_kron.csv'));
+
+% Save dict1 (Dict) to a CSV file
+% Make non-sparse matrix
+dict1 = full(dict1);
+writematrix(dict1, fullfile(outputDir, 'dict1_Dict.csv'));
+
+% Save dict2 (Dict_kron) to a CSV file
+% Make non-sparse matrix
+dict2 = full(dict2);
+writematrix(dict2, fullfile(outputDir, 'dict2_Dict_kron.csv'));
+
+% Save Y to a CSV file
+writematrix(Y, fullfile(outputDir, 'Y.csv'));
+
+% Save A_pinv1 to a CSV file
+writematrix(A_pinv1, fullfile(outputDir, 'A_pinv1.csv'));
+
+% Save A_pinv2 to a CSV file
+writematrix(A_pinv2, fullfile(outputDir, 'A_pinv2.csv'));
