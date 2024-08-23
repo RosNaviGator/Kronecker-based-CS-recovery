@@ -1,78 +1,13 @@
-# Kronecker-based-CS-recovery -- ECG data -- RosNaviGator
+# CSV loggign branch (ipynb)
+In this branch...
+- Python project is all in a single Jupyter Notebook `kronecker.ipynb` 
+- Both MATLAB and Python code are modified for __csv logging__: every important array is saved in a csv so that __you can compare the two implementations__ (at the end of python notebook there is code snippet that automatically performs the comparison)
 
 
-## Fork to study and to port to python (if I manage) the work of [Kronecker-based-CS-recovery](https://github.com/hadizand/Kronecker-based-CS-recovery)
-
-
-## Original description (by [Hadi Zanddizari](https://github.com/hadizand))
-Kronecker technique for improving quality of the signal in compressive sensing recovery
-
- This code shows the effect of Kronecker technique on compressive sensing recovery; this technique has been used for different signals and measurement matrices, 
-  and it has been published in multiple journals and conference papers:
-
-% [1] H. Zanddizari, S. Rajan, and H. Zarrabi, “Increasing the quality of reconstructed  signal  in  compressive  sensing  utilizing  Kronecker  technique,”
-     % Biomedical Engineering Letters, vol. 8, no. 2, pp. 239–247, May 2018.
-
-% [2] D. Mitra, H. Zanddizari, and S. Rajan, "Investigation of Kronecker-based recovery of compressed ECG signal," 
-     % IEEE Transactions on Instrumentation and Measurement, pp. 1-1, 2019.
-
-% [3] D. Mitra, H. Zanddizari, and S. Rajan, “Improvement of signal quality during recovery of compressively sensed ECG signals,” 
-     % in 2018 IEEE International Symposium on Medical Measurements and Applications (MeMeA), June 2018, pp. 1–5.
-
-% [4] D. Mitra, H. Zanddizari, and S. Rajan, “Improvement of recovery in segmentation-based parallel compressive sensing,” 
-     % in 2018 IEEE International Symposium on Signal Processing and Information Technology (ISSPIT), Dec 2018, pp. 501–506.
-
-%Author Hadi Zanddizari, 
-% hadiz@mail.usf.edu
-% hadizand@alumni.iust.ac.ir
-
-
-%-----------The main objective of this approach
-% For fast and efficient compression, sensing phase in compressive sensing can be done in very small size, because in this case: 
-    %it requires very small measurement matrix, 
-    %less number of multiplication and addition operations, and
-    %less delay for generating compressed samples
-    % which can be used for sensors with low computational resources.
- But sensing in small size degrades quality of recovery. Kronecker
- technique can be used in order to improve the quality of recovered signal.
-
-%---------------------------------------CS Recovery algorithm
- Any recovery algorithm can be used. In this code, Sl0 which is very fast CS recovery algorithm is used.
- [sl0-reference]: http://ee.sharif.edu/~SLzero/
-
-%----------------------------------Database
- In this code, an ECG signal from MIT-BIH Arrhythmia database which is public dataset is used.
- [Database Reference]:MIT-BIH Arrhythmia Database. [Online]. Available: http://www.physionet.org/physiobank/database/mitdb/
- 
-
-## Repo content
-### Branches:
----
-#### master
-I will freely modify the code here to both test the pre-existing implementation (MATLAB), but also to port it to python for a project I'm working on.
-
-Directories:
-- `python`:
-     - `kronecker.ipynb` (Jupyter Notebook): python implementation
-- `debugMatlab`: 
-     - modified version of original hadizand's code (MATLAB) with many debug prints to understand what happens at each step
-     - added different files trying to understand and repeat the creation of wavelet dictionaries as performed in MATLAB through __wmpdictionary__
-
-- `hadizandMatlab`:
-     - original hadizand's code (MATLAB) without all the debug prints and added functions, just to clean test the hadizand implementation
+## How to use (same as master ...)
 
 ---
 
-#### hadizand-original-backup
-Untouched copy of orginal folder
-
----
-
-### testing-ground
-A messy branch full of failed attempts (especially in creating a _DWT dictionary_), plus lots and lots of debugging prints ...
-
-
-## How to use
 ### MATLAB content
 
 You need to have MATLAB installed: `debugMATLAB`, `hadizandMATLAB` are stand-alone-content directories, just set MATLAB working directory to the one you want to run.
@@ -90,13 +25,12 @@ It slightly depends on the following choice you make: you can either choose to u
 - Run all commands from `root` directory of the project
 
 - You might want to install a python virtual environment, here shown with venv (but you're free to use _conda_ or whatever you prefer)
+- Jupyter Notebook (.ipynb)
 ```sh
 # virtual environment
 python -m venv .kroneckerVenv
 source .kroneckerVenv/bin/activate
 ```
-- If working with Jupyter Notebook (.ipynb)
-     - NOTE: to this day, I only provide a version in jupyter, my intention is to transpose to individual scripts once I have the time, for better portability and mantainability.
 ```sh
 # ipykernel installation
 pip install jupyter ipykernel
@@ -108,16 +42,11 @@ python -m ipykernel install --user --name=kroneckerVenv --display-name "Python (
 pip install -r .requirements.txt
 ```
 
-#### Automatic installation script (alternative to previous ones)
+#### Automatic installation script (alternative to previous commands)
 ```sh
 source install.sh
 ```
 
-#### Use freely whole [MIT-BIH Arrhythmia Database](https://physionet.org/content/mitdb/1.0.0/)
-- There is a dedicated python module to use the MIT-BIH Arrhythmia Database
-- __Beware:__ when I used this library in 2024 it __didn't work__ with latest version of python (__3.12__), it did work fine using __python3.8__
-```sh
-# Python module to use MIT-BIH databases bind to Physionet.org
-pip install wfdb
-```
-- __I didn't use it__ for my implementation, RECORD 100 already present in original repo was enough for the purpose of my study, so _the rest is up to you..._
+
+# Kronecker-based-CS-recovery -- ECG data -- RosNaviGator
+### Fork to study and to port to python (if I manage) the work of [Kronecker-based-CS-recovery](https://github.com/hadizand/Kronecker-based-CS-recovery)
