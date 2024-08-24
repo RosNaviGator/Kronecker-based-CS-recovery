@@ -8,5 +8,5 @@
 plots
 
 # ignore package install files
-*.egg-info
+compSensPack.egg-info
 build

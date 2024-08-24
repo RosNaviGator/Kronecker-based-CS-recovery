@@ -103,10 +103,8 @@ source .kroneckerVenv/bin/activate
 pip install .
 ```
 
-#### Automatic installation script (alternative to previous ones)
-```sh
-source install.sh
-```
+#### How to run:
+Simply run `scripts/main_run.py`
 
 #### Use freely whole [MIT-BIH Arrhythmia Database](https://physionet.org/content/mitdb/1.0.0/)
 - There is a dedicated python module to use the MIT-BIH Arrhythmia Database
@@ -115,4 +113,4 @@ source install.sh
 # Python module to use MIT-BIH databases bind to Physionet.org
 pip install wfdb
 ```
-- __I didn't use it__ for my implementation, RECORD 100 already present in original repo was enough for the purpose of my study, so _the rest is up to you..._
+- __I didn't use it__ for my implementation, RECORD 100 already present in original repo was enough for the purpose of my study, so _the rest is up to you... (modify `scripts/main_run.py` to add it if you want)
