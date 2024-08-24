@@ -7,5 +7,6 @@
 # ignore plots
 plots
 
-# ignore package info
-.egg-info
+# ignore package install files
+*.egg-info
+build
