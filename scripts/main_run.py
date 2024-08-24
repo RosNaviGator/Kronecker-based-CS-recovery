@@ -5,8 +5,9 @@ import compSensPack as csp
 
 def main():    
 
-    # non blocking plots
-    plt.ion()
+    # non blocking plots, uncomment if you want the program to AVOID blocking the plots
+    # then you can simply look for the plots in the 'plots' directory
+    #plt.ion()
 
     # I put this here because you have to decide kron fact based on
     # the signal length, but for testing reasons I prefer to do the 

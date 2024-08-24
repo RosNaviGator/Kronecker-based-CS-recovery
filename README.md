@@ -76,9 +76,9 @@ Untouched copy of orginal folder
 
 ### MATLAB content
 
-You need to have MATLAB installed: `debugMATLAB`, `hadizandMATLAB` are stand-alone-content directories, just set MATLAB working directory to the one you want to run.
+You need to have MATLAB installed: `matlabDir` is a stand-alone-content directory, just set MATLAB working directory to the it.
 - Version: original code was written in 2008, I used it in 2024, no compatibility issues to this day.
-- `wmpdictionary` is obsolete, will be soon replaced by `sensingDictionary`
+- Mathworks website info: `wmpdictionary` is obsolete, will be soon replaced by `sensingDictionary`
 
 ---
 
@@ -105,8 +105,12 @@ pip install .
 
 #### How to run:
 Simply run `scripts/main_run.py`
+```sh
+# run from CLI
+python scripts/main_run.py
+```
 
-#### Use freely whole [MIT-BIH Arrhythmia Database](https://physionet.org/content/mitdb/1.0.0/)
+#### If you want to use freely whole [MIT-BIH Arrhythmia Database](https://physionet.org/content/mitdb/1.0.0/)
 - There is a dedicated python module to use the MIT-BIH Arrhythmia Database
 - __Beware:__ when I used this library in 2024 it __didn't work__ with latest version of python (__3.12__), it did work fine using __python3.8__
 ```sh
