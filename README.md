@@ -97,13 +97,6 @@ It slightly depends on the following choice you make: you can either choose to u
 python -m venv .kroneckerVenv
 source .kroneckerVenv/bin/activate
 ```
-- If working with Jupyter Notebook (.ipynb)
-     - NOTE: to this day, I only provide a version in jupyter, my intention is to transpose to individual scripts once I have the time, for better portability and mantainability.
-```sh
-# ipykernel installation
-pip install jupyter ipykernel
-python -m ipykernel install --user --name=kroneckerVenv --display-name "Python (kroneckerVenv)"
-```
 - Install this project package `compSensPack` and all it's requirements
 ```sh
 # install compSensPack

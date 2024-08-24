@@ -6,3 +6,6 @@
 
 # ignore plots
 plots
+
+# ignore package info
+.egg-info
