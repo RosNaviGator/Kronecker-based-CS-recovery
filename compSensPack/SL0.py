@@ -68,7 +68,15 @@ def SL0(y, A, sigma_min, sigma_decrease_factor=0.5, mu_0=2, L=3, A_pinv=None, sh
       more efficient, especially in scenarios where it is called repeatedly with the 
       same `A`.
 
-    """
+      
+      References:
+      ----------
+    - Original authors (MATLAB): Massoud Babaie-Zadeh, Hossein Mohimani, 4 August 2008.
+    - Web-page: http://ee.sharif.ir/~SLzero
+
+    - Ported to python: RosNaviGator https://github.com/RosNaviGator, 2024
+
+   """
 
     if A_pinv is None:
         A_pinv = np.linalg.pinv(A)

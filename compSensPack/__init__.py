@@ -6,7 +6,7 @@ from .sparseSignalGenerator import sparseSignal
 from .samplingPhase import compressSignal
 from .sparseDictionaries import generate_DCT_dictionary, generate_DWT_basis
 from .sparseDictionaries import  compute_independent_columns, check_normalization, compute_coherence
-from .reconstructionMethods import SL0
+from .SL0 import SL0
 from .measurementMatrix import generate_DBDD_matrix, generate_random_matrix
 from .recoveryPhase import non_kron_recovery, kron_recovery
 from .evaluation import calculate_snr, plot_signals
