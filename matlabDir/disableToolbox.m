@@ -32,4 +32,19 @@ toggleToolbox({'wavelet'}, 'on');
 disp("Toggles back on:");
 ALL = toggleToolbox('all');
 disp(ALL);
+disp("-----------------------------");
 
+
+% disable all toolboxes
+toggleToolbox('all', 'off');
+disp("Toggled all off:");
+ALL = toggleToolbox('all');
+disp(ALL);
+disp("-----------------------------");
+
+% enable all toolboxes
+toggleToolbox('all', 'on');
+disp("Toggled all on:");
+ALL = toggleToolbox('all');
+disp(ALL);
+disp("-----------------------------");

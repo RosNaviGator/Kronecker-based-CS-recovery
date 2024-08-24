@@ -79,7 +79,7 @@ Untouched copy of orginal folder
 You need to have MATLAB installed: `matlabDir` is a stand-alone-content directory, just set MATLAB working directory to the it.
 - Version: original code was written in 2008, I used it in 2024, no compatibility issues to this day.
 - Mathworks website info: `wmpdictionary` is obsolete, will be soon replaced by `sensingDictionary`
-- __Toolboxes__:
+- __Toolboxes__: `'Wavelet Toolbox'` required
 
 ---
 
