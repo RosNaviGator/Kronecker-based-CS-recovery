@@ -5,14 +5,14 @@ import compSensPack as csp
 
 def main():    
 
-
-
+    # non blocking plots
+    plt.ion()
 
     # I put this here because you have to decide kron fact based on
     # the signal length, but for testing reasons I prefer to do the 
     # opposite: choose signal length based on kron factor
     
-    n_block = 16 # block size, deafult is 16
+    n_block = 64 # block size, deafult is 16
     kron_factor = n_block * 2  # kron factor default is 32
 
 
@@ -25,7 +25,7 @@ def main():
     key = list(data.keys())[0]
     # retrieve the values
     signal = data[key][0,:]  # [0 or 1, 0:650000] s.t. first dim: (0 is MLII, 1 is V5)
-    num = 10  # how many kronecker blocks will be long the original signals
+    num = 1  # how many kronecker blocks will be long the original signals
     temp = n_block * kron_factor  # this is equal to the length of a kronecker block
     start = int(temp * 0)  # choose where to start our signal in the record (signal is a piece of the record)
     end = int(start + temp * num)
