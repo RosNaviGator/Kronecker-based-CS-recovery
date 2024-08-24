@@ -1,16 +1,20 @@
 import scipy.io
 import matplotlib.pyplot as plt
+import os
 import compSensPack as csp
 
-if __name__ == "__main__":
+def main():    
 
-    
+
+
+
     # I put this here because you have to decide kron fact based on
     # the signal length, but for testing reasons I prefer to do the 
     # opposite: choose signal length based on kron factor
     
     n_block = 16 # block size, deafult is 16
     kron_factor = n_block * 2  # kron factor default is 32
+
 
 
     ## DATA
@@ -26,8 +30,6 @@ if __name__ == "__main__":
     start = int(temp * 0)  # choose where to start our signal in the record (signal is a piece of the record)
     end = int(start + temp * num)
     signal = signal[start:end]  # comment out to use the whole signal
-    # print the shape of the signal
-    print(f'Signal shape: {signal.shape}') 
     # plot the signal
     plt.figure(figsize=(10, 6))
     plt.plot(signal)
@@ -35,6 +37,20 @@ if __name__ == "__main__":
     plt.xlabel('Index')
     plt.ylabel('Amplitude')
     plt.grid(True)
+
+
+     # Determine the path to the root directory (the parent of the 'scripts' directory)
+    root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    # Define the path to the 'plots' directory in the root
+    plots_path = os.path.join(root_path, 'plots')
+    # Ensure the 'plots' directory exists
+    os.makedirs(plots_path, exist_ok=True)
+     # Save the plot to the 'plots' directory
+    plot_filename = os.path.join(plots_path, 'plt1-ecg_original_signal.png')
+    plt.savefig(plot_filename)
+    print(f"Plot saved to {plot_filename}")
+
+
     plt.show()    
 
     ## PARAMETERS
@@ -85,5 +101,13 @@ if __name__ == "__main__":
     ## EVALUATION
     # ----------------------------------------------------------------
     # Plot and SNR
-    csp.plot_signals(signal, recovered_signal, original_name="Original Signal", reconstructed_name="Recovered Signal")
-    csp.plot_signals(signal, recovered_signal_kron, original_name="Original Signal", reconstructed_name="Recovered Signal (Kronecker)")
+    csp.plot_signals(signal, recovered_signal, original_name="Original Signal",
+                     reconstructed_name="Recovered Signal", save_path=plots_path, filename='plt2-non-kronecker.png')
+    csp.plot_signals(signal, recovered_signal_kron, original_name="Original Signal",
+                     reconstructed_name="Recovered Signal (Kronecker)", save_path=plots_path, filename='plt3-kronecker.png') 
+
+
+
+if __name__ == "__main__":
+    main()
+    print("Main terminated! Look for the plots in the 'plots' directory.")

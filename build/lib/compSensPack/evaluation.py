@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 
 def calculate_snr(signal, recovered_signal):
     """
@@ -27,10 +28,11 @@ def calculate_snr(signal, recovered_signal):
     
     return snr
 
-def plot_signals(original_signal, reconstructed_signal, original_name="Original Signal", reconstructed_name="Reconstructed Signal"):
+def plot_signals(original_signal, reconstructed_signal, original_name="Original Signal", 
+                 reconstructed_name="Reconstructed Signal", save_path=None, filename=None):
     """
-    Plots the original signal and the reconstructed signal on the same plot with the given names
-    and displays the Signal-to-Noise Ratio (SNR) in a text box.
+    Plots the original signal and the reconstructed signal on the same plot with the given names,
+    displays the Signal-to-Noise Ratio (SNR) in a text box, and saves the plot to a specified directory.
 
     Parameters
     ----------
@@ -45,6 +47,12 @@ def plot_signals(original_signal, reconstructed_signal, original_name="Original 
     
     reconstructed_name : str, optional (default="Reconstructed Signal")
         The name to display for the reconstructed signal in the plot.
+    
+    save_path : str, optional
+        The directory path where the plot should be saved. If None, the plot will not be saved.
+    
+    filename : str, optional
+        The name of the file to save the plot as. If None and save_path is provided, a default name will be generated.
     """
     
     # Ensure the signals have the same length
@@ -73,4 +81,20 @@ def plot_signals(original_signal, reconstructed_signal, original_name="Original 
     
     # Grid and show plot
     plt.grid(True)
-    plt.show()
+    
+    # Save the plot if a save path is provided
+    if save_path is not None:
+        # Ensure the save directory exists
+        os.makedirs(save_path, exist_ok=True)
+        
+        # Use provided filename or generate a default one
+        if filename is None:
+            filename = f"{original_name}_vs_{reconstructed_name}.png"
+        
+        # Define the file path to save the plot
+        file_path = os.path.join(save_path, filename)
+        plt.savefig(file_path)
+        print(f"Plot saved to {file_path}")
+    
+    # Display the plot
+    plt.show() 
