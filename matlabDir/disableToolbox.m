@@ -1,0 +1,34 @@
+% Just an utility to disable/enable toolboxes in MATLAB
+
+clc; clear; close all;
+
+%% Use toggleToolbox 
+% Visualize active toolboxes names in current session
+M = toggleToolbox('names');
+disp("Active toolboxes names:");
+disp(M);
+% query if on/off all toolboxes
+ALL = toggleToolbox('all');
+disp("Query all toolboxes:");
+disp(ALL);
+% query if on/off specific toolbox
+LIST = toggleToolbox({'matlab', 'wavelet'}, 'query');
+disp("Query specific toolboxes:")
+disp(LIST);
+disp("-----------------------------");
+
+
+% turn off specific toolbox
+toggleToolbox({'wavelet'}, 'off');
+disp("Toggled one off:");
+ALL = toggleToolbox('all');
+disp(ALL);
+disp("-----------------------------");
+
+
+% turn on specific toolbox
+toggleToolbox({'wavelet'}, 'on');
+disp("Toggles back on:");
+ALL = toggleToolbox('all');
+disp(ALL);
+
