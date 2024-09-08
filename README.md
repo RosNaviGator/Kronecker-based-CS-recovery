@@ -95,6 +95,7 @@ It slightly depends on the following choice you make: you can either choose to u
 - You might want to install a python virtual environment, here shown with venv (but you're free to use _conda_ or whatever you prefer)
 ```sh
 # virtual environment
+deactivate
 python -m venv .kroneckerVenv
 source .kroneckerVenv/bin/activate
 ```
