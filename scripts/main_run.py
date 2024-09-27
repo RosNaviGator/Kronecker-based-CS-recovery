@@ -14,7 +14,7 @@ def main():
     # opposite: choose signal length based on kron factor
     
     n_block = 16 # block size, deafult is 16
-    kron_factor = 64  # kron factor default is 32
+    kron_factor = 8  # kron factor default is 32
     print(f"Block size: {n_block}, Kron factor: {kron_factor}")
 
 
@@ -71,10 +71,10 @@ def main():
     ### SAMPLING PHASE 
     # ----------------------------------------------------------------
     # MEASUREMENT MATRIX
-    Phi = csp.generate_DBDD_matrix(m_block, n_block)
-    #Phi = generate_random_matrix(m_block, n_block, matrix_type='gaussian')
-    #Phi = generate_random_matrix(m_block, n_block, matrix_type='scaled_binary')
-    #Phi = generate_random_matrix(m_block, n_block, matrix_type='unscaled_binary')
+    #Phi = csp.generate_DBDD_matrix(m_block, n_block)
+    #Phi = csp.generate_random_matrix(m_block, n_block, matrix_type='gaussian')
+    #Phi = csp.generate_random_matrix(m_block, n_block, matrix_type='scaled_binary')
+    Phi = csp.generate_random_matrix(m_block, n_block, matrix_type='unscaled_binary')
 
     # COMPRESS THE SIGNAL
     Y = csp.compressSignal(signal, Phi)

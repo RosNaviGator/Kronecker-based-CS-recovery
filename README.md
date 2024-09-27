@@ -1,7 +1,18 @@
 # Kronecker-based-CS-recovery -- ECG data -- RosNaviGator
 
 
-## Fork to study and to port to python (if I manage) the work of [Kronecker-based-CS-recovery](https://github.com/hadizand/Kronecker-based-CS-recovery)
+# This project has been archived and will no longer be maintained.
+
+The work from this repository, along with contributions from other reports, **converged** and has been **merged** into a final project:  
+### **[Ecg_CompressedSensing](https://github.com/RosNaviGator/Ecg_CompressedSensing)**
+
+Please visit the new repository for the latest developments, including updates, improvements, and Python implementations of the algorithms.
+
+
+---
+
+
+## Fork to study and to port to python the work of [Kronecker-based-CS-recovery](https://github.com/hadizand/Kronecker-based-CS-recovery)
 
 I will leave as description the original one by Hadi Zanddizari, it also __includes all the references__ to __Kronecker Technique__, __Compressed Sensing__, __SL0 recovery algorithm__, __MIT-BIH Arrhythmia database__ 
 
