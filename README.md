@@ -1,4 +1,4 @@
-# Kronecker-based-CS-recovery -- ECG data -- RosNaviGator
+# Kronecker-based-CS-recovery -- ECG data -- ARCHIVED
 
 
 # This project has been archived and will no longer be maintained.
